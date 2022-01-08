@@ -68,6 +68,9 @@ disp(mean(profits));
 
 %% PROBLEM 3, question 6
 
+% This section doesn't run particularly fast. 
+% Tried an approximation to 3rd degree pol. (instead of using VpaSolve) to accelerate. Here is the 'correct' solution only
+
 clear; clc; close all;
 
 syms x
@@ -90,6 +93,8 @@ A_high = 0.06 + rand(N,1)*0.03;    % assets greater than 0.06
 
 mean_profit_L = zeros(n,1);
 mean_profit_H = zeros(n,1);
+
+% First loop for the values of q_up, nested loop replicates profits calculations
 
 for k = 1:n
     
