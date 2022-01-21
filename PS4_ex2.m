@@ -33,6 +33,8 @@ k = linspace(k_min, k_max, n_k)';
 V_guess = zeros(n_k,n_z);
 V_opt = ones(n_k,n_z);
 
+K_values = NaN(n_k,n_z);  % To store the optimal future capital k' for any state (k,z)
+
 % Iterate until the algorithm convergence limit goes below the threshold
 % For each iteration step, V_opt(k,z) is computed element-by-element
 
@@ -44,7 +46,8 @@ while max(max(abs(V_guess-V_opt))) > tolerance
         for j = 1:n_z
             argument = z(j)*(k(i)^alpha) - (k - (1-delta)*k(i)) - (psi0/(2*k(i)).*(k - (1-delta)*k(i)).^2) ...
                 - psi1*k(i).*(k~=(1-delta)*k(i))   + (V_guess*Pi(:,j))./(1+r);
-            V_opt(i,j) = max(argument);
+            [V_opt(i,j), maxposition] = max(argument);
+            K_values(i,j) = k(maxposition);
         end
     end
     
@@ -68,11 +71,23 @@ ylabel('Value Function $V(k,z)$','Interpreter','latex');
 leg = legend('$z=0.43$','$z=2.32$','Interpreter','latex'); set(leg,'Location','best');
     
 
+% The implicit investment is computed as: k' - (1-delta)k
+investment = K_values - (1-delta).*k;
 
 
+figure(3)
+plot(z, investment(1,:), '-r', 'LineWidth', 2);hold on
+plot(z, investment(end,:), '-b', 'LineWidth', 2);hold on
+grid on
+xlabel('Productivity Shock $z$','Interpreter','latex');
+ylabel('Optimal Investment $I$','Interpreter','latex');
+leg = legend('$k=0.07$','$k=9.32$','Interpreter','latex'); set(leg,'Location','best');
 
-
-
-
-
+figure(4)
+plot(k, investment(:,1), '-r', 'LineWidth', 2);hold on
+plot(k, investment(:,end), '-b', 'LineWidth', 2);hold on
+grid on
+xlabel('Current Period Capital $k$','Interpreter','latex');
+ylabel('Optimal Investment $I$','Interpreter','latex');
+leg = legend('$z=0.43$','$z=2.32$','Interpreter','latex'); set(leg,'Location','best');
 
