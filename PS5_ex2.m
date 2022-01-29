@@ -178,13 +178,13 @@ tobin = (V_sim + d_sim)./k_sim;
 
 % Consider simulated points from the last 20 years only
 
-net_profits = net_profits(:,end-20:end);
-net_profitability = net_profitability(:,end-20:end);
-investment = investment(:,end-20:end);
-investment_rate = investment_rate(:,end-20:end);
-debt = debt(:,end-20:end);
-book_leverage = book_leverage(:,end-20:end);
-tobin = tobin(:,end-20:end);
+net_profits = net_profits(:,end-19:end);
+net_profitability = net_profitability(:,end-19:end);
+investment = investment(:,end-19:end);
+investment_rate = investment_rate(:,end-19:end);
+debt = debt(:,end-19:end);
+book_leverage = book_leverage(:,end-19:end);
+tobin = tobin(:,end-19:end);
 
 % Computing the moments
 Mean = [mean(net_profits,'all'); mean(net_profitability,'all'); mean(investment,'all'); ...
