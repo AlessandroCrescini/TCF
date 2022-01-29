@@ -1,6 +1,6 @@
 %% Problem Set 5
 
-%% Solving the Hennessy - Whited (2005) model 
+%% SOLVING THE HENNESSY - WHITED (2005) MODEL 
 
 clear; clc; close all;
 
@@ -29,7 +29,7 @@ n_d = 15;
 z = exp(z)';
 
 % Grid for capital k
-k_max = (  (z(end)*alpha/(1+r)) / ( 1+ (1-delta)/(1+r)  ) )^(1/(1-alpha));
+k_max = (  (z(end)*alpha/(1+r)) / ( 1- (1-delta)/(1+r)  ) )^(1/(1-alpha));
 k = [ NaN(1,n_k-1), k_max]';
 for i = (n_k-1):-1:1
     k(i) = (1-delta)*k(i+1);
@@ -99,7 +99,7 @@ while max(abs(V_guess-V_opt),[],'all') > tolerance
 end
 
 
-%% Simulation
+%% SIMULATION
 
 N = 10000;              % number of simulations
 T = 120;                % simulation length
@@ -164,7 +164,7 @@ for t = 2:(T+1)
 end
 
 
-%% Computing the moments
+%% COMPUTING MOMENTS
 
 % Definition of the interesting variables
 
@@ -215,6 +215,3 @@ Maximum = [max(net_profits,[],'all'); max(net_profitability,[],'all'); max(inves
 moments = table(Mean, Variance, Minimum, Quantile_25, Median, Quantile_75, Maximum);
 
 table2latex(moments);
-
-
-
