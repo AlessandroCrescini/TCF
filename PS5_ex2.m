@@ -104,6 +104,7 @@ end
 N = 10000;              % number of simulations
 T = 120;                % simulation length
 
+rng(1);
 u = rand(N,T);          % random to simulate shocks
 F = cumsum(Pi,1);       % Empirical cdf of transition probabilities
 
